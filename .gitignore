@@ -29,3 +29,9 @@ Thumbs.db
 # Coverage / reports
 htmlcov/
 .coverage*
+
+# --- Permitir versionar SOLO /media/imagenes (para evidencias del bootcamp) ---
+/media/**
+!/media/
+!/media/imagenes/
+!/media/imagenes/**
