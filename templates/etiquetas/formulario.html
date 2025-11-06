@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ modo|capfirst }} etiqueta — Inventario{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2 style="margin-top:0;">{{ modo|capfirst }} etiqueta</h2>
+    <form method="post" class="grid">
+      {% csrf_token %}
+      <div>
+        <label for="{{ form.nombre.id_for_label }}">Nombre</label>
+        {{ form.nombre }}
+      </div>
+
+      <div style="display:flex; gap:.5rem; margin-top:1rem;">
+        <button class="btn" type="submit">Guardar</button>
+        <a class="btn secondary" href="{% url 'lista_etiquetas' %}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

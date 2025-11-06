@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+  <div class="card" style="max-width:520px;">
+    <h2 style="margin-top:0;">Iniciar sesión</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label for="id_username">Usuario</label>
+        <input type="text" name="username" autofocus required id="id_username">
+      </div>
+      <div>
+        <label for="id_password">Contraseña</label>
+        <input type="password" name="password" required id="id_password">
+      </div>
+      <div style="display:flex; gap:.5rem; margin-top:1rem;">
+        <button class="btn" type="submit">Entrar</button>
+        <a class="btn secondary" href="{% url 'index' %}">Volver</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

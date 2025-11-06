@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Crear producto — Inventario{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2 style="margin-top:0;">Crear producto</h2>
+    <form method="post" class="grid">
+      {% csrf_token %}
+
+      <div class="grid cols-2">
+        <div>
+          <label for="{{ form.nombre.id_for_label }}">Nombre</label>
+          {{ form.nombre }}
+        </div>
+        <div>
+          <label for="{{ form.precio.id_for_label }}">Precio</label>
+          {{ form.precio }}
+        </div>
+      </div>
+
+      <div>
+        <label for="{{ form.descripcion.id_for_label }}">Descripción</label>
+        {{ form.descripcion }}
+      </div>
+
+      <div class="grid cols-2">
+        <div>
+          <label for="{{ form.categoria.id_for_label }}">Categoría</label>
+          {{ form.categoria }}
+        </div>
+        <div>
+          <label>Etiquetas</label>
+          {{ form.etiquetas }}
+          <p class="muted" style="margin:.25rem 0 0;">(Mantén Ctrl para seleccionar múltiples, o usa Cmd en Mac)</p>
+        </div>
+      </div>
+
+      <hr style="border:1px solid var(--line); margin: .5rem 0 1rem;">
+
+      <h3 style="margin:.2rem 0;">Detalle del producto (1:1)</h3>
+      <div class="grid cols-2">
+        <div>
+          <label for="{{ detalle_form.dimensiones.id_for_label }}">Dimensiones</label>
+          {{ detalle_form.dimensiones }}
+        </div>
+        <div>
+          <label for="{{ detalle_form.peso.id_for_label }}">Peso (kg)</label>
+          {{ detalle_form.peso }}
+        </div>
+      </div>
+
+      <div style="display:flex; gap:.5rem; margin-top:1rem;">
+        <button class="btn" type="submit">Guardar</button>
+        <a class="btn secondary" href="{% url 'lista_productos' %}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

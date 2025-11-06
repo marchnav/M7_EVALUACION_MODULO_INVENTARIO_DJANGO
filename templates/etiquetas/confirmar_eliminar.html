@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Eliminar etiqueta — Inventario{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2 style="margin-top:0;">Eliminar etiqueta</h2>
+    <p class="muted">¿Eliminar <strong>{{ etiqueta.nombre }}</strong>?</p>
+
+    <form method="post" style="margin-top:1rem;">
+      {% csrf_token %}
+      <button class="btn danger" type="submit">Sí, eliminar</button>
+      <a class="btn secondary" href="{% url 'lista_etiquetas' %}">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

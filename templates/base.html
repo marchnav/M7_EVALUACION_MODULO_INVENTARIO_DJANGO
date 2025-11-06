@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Inventario{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0e1d3a;
+      --card:#112349;
+      --muted:#c7d2fe;
+      --text:#f8fafc;
+      --accent:#8B5CF6;
+      --ok:#16a34a; --warn:#f59e0b; --err:#ef4444;
+      --line:#1f2b52;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text)}
+    a{color:var(--muted); text-decoration:none}
+    a:hover{color:#fff}
+    header{border-bottom:1px solid var(--line); backdrop-filter:saturate(1.2);}
+    .container{max-width:1100px; margin:0 auto; padding:1rem}
+    .nav{display:flex; gap:1rem; align-items:center; justify-content:space-between}
+    .nav a.brand{font-weight:700; letter-spacing:.2px; color:#fff}
+    .nav .links{display:flex; gap:.75rem; flex-wrap:wrap; align-items:center}
+    main{padding:1.25rem 0}
+    .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:1rem}
+    .btn{display:inline-block; padding:.55rem .9rem; border-radius:10px; background:var(--accent); color:white; border:none; cursor:pointer; font-weight:600}
+    .btn.secondary{background:transparent; border:1px solid var(--line); color:#e5e7eb}
+    .btn.danger{background:var(--err)}
+    .grid{display:grid; gap:1rem}
+    @media(min-width:900px){ .grid.cols-2{grid-template-columns:1fr 1fr}}
+    table{width:100%; border-collapse:collapse; border:1px solid var(--line); background:var(--card); border-radius:12px; overflow:hidden}
+    th, td{padding:.75rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+    th{background:#0f2146; text-align:left; color:#e2e8f0}
+    tr:hover td{background:#0d1a37}
+    input, select, textarea{width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid var(--line); background:#0b1731; color:#e5e7eb}
+    label{display:block; margin:.4rem 0 .3rem; font-weight:600}
+    .muted{color:#cbd5e1; opacity:.9}
+    .messages{margin:0 0 1rem 0}
+    .msg{padding:.7rem .9rem; border-radius:10px; margin:.5rem 0; font-weight:600}
+    .msg.success{background:#052e1a; border:1px solid #065f46; color:#bbf7d0}
+    .msg.error{background:#3a0d12; border:1px solid #7f1d1d; color:#fecaca}
+    .msg.warning{background:#3a2905; border:1px solid #854d0e; color:#fde68a}
+    footer{border-top:1px solid var(--line); margin-top:2rem; color:#cbd5e1; font-size:.9rem}
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="{% url 'index' %}">Inventario</a>
+      <nav class="links">
+        <a href="{% url 'lista_productos' %}">Productos</a>
+        <a href="{% url 'lista_categorias' %}">Categorías</a>
+        <a href="{% url 'lista_etiquetas' %}">Etiquetas</a>
+        <a href="/admin/">Admin</a>
+
+        {% if user.is_authenticated %}
+          <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button class="btn secondary" type="submit" style="padding:.35rem .6rem;">Cerrar sesión</button>
+          </form>
+        {% else %}
+          {% if request.path == "/accounts/login/" %}
+            <a class="btn secondary" href="{% url 'login' %}" style="padding:.35rem .6rem;">Iniciar sesión</a>
+          {% else %}
+            <a class="btn secondary" href="{% url 'login' %}?next={{ request.path|urlencode }}" style="padding:.35rem .6rem;">Iniciar sesión</a>
+          {% endif %}
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="msg {{ message.tags|default:'' }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer>
+    <div class="container" style="padding:1rem 0;">
+      <span>CRUD Productos & Categorías - Bootcamp • Django + PostgreSQL - Desarrollado por Marcelo Navarrete</span>
+    </div>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

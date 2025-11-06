@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Etiquetas — Inventario{% endblock %}
+
+{% block content %}
+  <div class="card" style="margin-bottom:1rem;">
+    <a class="btn" href="{% url 'crear_etiqueta' %}">+ Crear etiqueta</a>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Listado de etiquetas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th style="width:220px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in etiquetas %}
+          <tr>
+            <td><strong>{{ e.nombre }}</strong></td>
+            <td>
+              <a class="btn secondary" href="{% url 'editar_etiqueta' e.id %}">Editar</a>
+              <a class="btn danger" href="{% url 'eliminar_etiqueta' e.id %}">Eliminar</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="2" class="muted">Sin etiquetas.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

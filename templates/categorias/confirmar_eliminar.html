@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Eliminar categoría — Inventario{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h2 style="margin-top:0;">Eliminar categoría</h2>
+    <p class="muted">¿Eliminar <strong>{{ categoria.nombre }}</strong>?</p>
+    <p class="muted">Si hay productos asociados, no se podrá eliminar.</p>
+
+    <form method="post" style="margin-top:1rem;">
+      {% csrf_token %}
+      <button class="btn danger" type="submit">Sí, eliminar</button>
+      <a class="btn secondary" href="{% url 'lista_categorias' %}">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

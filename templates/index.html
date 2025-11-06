@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Inicio — Inventario{% endblock %}
+
+{% block content %}
+  <div class="grid cols-2">
+    <section class="card">
+      <h1 style="margin:0 0 .5rem 0;">Bienvenido/a</h1>
+      <p class="muted">Sistema de gestión de <strong>Productos</strong>, <strong>Categorías</strong> y <strong>Etiquetas</strong>.
+        Usa los accesos rápidos para comenzar.</p>
+
+      <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem;">
+        <a class="btn" href="{% url 'lista_productos' %}">Ver productos</a>
+        <a class="btn secondary" href="{% url 'crear_producto' %}">Crear producto</a>
+        <a class="btn secondary" href="{% url 'lista_categorias' %}">Ver categorías</a>
+        <a class="btn secondary" href="{% url 'lista_etiquetas' %}">Ver etiquetas</a>
+        <a class="btn secondary" href="/admin/">Ir al Admin</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin:0 0 .5rem 0;">Búsqueda rápida</h2>
+      <form action="{% url 'lista_productos' %}" method="get" class="grid">
+        <div>
+          <label for="q">Nombre contiene</label>
+          <input type="text" id="q" name="q" placeholder="Ej: teclado, mouse, monitor" />
+        </div>
+        <div>
+          <label for="categoria">Filtrar por categoría</label>
+          <!-- Este select se llena en la vista de lista; aquí sólo es info -->
+          <select id="categoria" name="categoria">
+            <option value="">(todas)</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn" type="submit">Buscar</button>
+        </div>
+      </form>
+
+      <p class="muted" style="margin-top:.75rem;">También puedes entrar a <a href="{% url 'lista_productos' %}">Productos</a> y filtrar allí.</p>
+    </section>
+  </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Categorías — Inventario{% endblock %}
+
+{% block content %}
+  <div class="card" style="margin-bottom:1rem;">
+    <a class="btn" href="{% url 'crear_categoria' %}">+ Crear categoría</a>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Listado de categorías</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th style="width:220px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in categorias %}
+          <tr>
+            <td><strong>{{ c.nombre }}</strong></td>
+            <td class="muted">{{ c.descripcion|default:"—" }}</td>
+            <td>
+              <a class="btn secondary" href="{% url 'editar_categoria' c.id %}">Editar</a>
+              <a class="btn danger" href="{% url 'eliminar_categoria' c.id %}">Eliminar</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3" class="muted">Sin categorías.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
